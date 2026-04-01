@@ -1,10 +1,12 @@
 <?php
  
- 
+ # Prevent direct access
+if (!defined('IN_GS')) {
+    die('You cannot load this page directly.');
+}
 
 $thisfile=basename(__FILE__, ".php");
 
- 
 
 register_plugin(
 	$thisfile, //Plugin id
@@ -22,7 +24,9 @@ i18n_merge($thisfile, substr($LANG,0,2)) || i18n_merge($thisfile,'en_US');
 
 # add a link in the admin tab 'theme'
 add_action('pages-sidebar','createSideMenu',[$thisfile, 'Newsletter 📧']);
- 
+
+// Enregistrement du shortcode
+add_filter('content', 'newsletterShortcode');
 
 function newsletter() {
 
@@ -61,9 +65,11 @@ echo '<div style="width:100px;padding:10px;background:#fafafa;border:solid 1px #
 <code>
 &#60;?php newsletterInvitation() ;?&#62;
 </code>
-<br>
-
-
+<br/><br/>
+'.i18n_r("newsletter/INVITATION_SHORTCODE").'
+<code>
+[newsletterInvitation]
+</code>
 </div>';
 
 
@@ -90,26 +96,32 @@ echo '
 }
 
 
-
+/**
+ * Process shortcodes in content
+ */
+function newsletterShortcode($content) {
+    // [newsletterInvitation]
+    $content = preg_replace_callback(
+        '/\[newsletterInvitation\]/',
+        'buildNewsletterInvitationContent',
+        $content
+    );
+    return $content;
+}
 
 # functions
-function newsletterInvitation() {
-
-
+function buildNewsletterInvitationContent() {
  
     if(isset($_POST['givemenewsletter'])){
 
-
-
         if($_POST['trap']==null && $_POST['emailnewsletter'] !== null){
     
-            
             $email = $_POST['emailnewsletter'];
+
             $files = fopen(GSPLUGINPATH.'newsletter/security/emails','a');
             $result = fwrite($files,$email.',');
             fclose($files);
     
- 
             if($result !== false){
                 $status = true;
             }else{
@@ -120,32 +132,40 @@ function newsletterInvitation() {
             $status = false;
         };
     
- 
     };
     $message = @file_get_contents(GSDATAOTHERPATH.'newsletter/messagenewsletter.txt');
-        $messagebtn = @file_get_contents(GSDATAOTHERPATH.'newsletter/messagebtn.txt');
-        $successinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/success.txt');
-        $errorinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/error.txt');
+    $messagebtn = @file_get_contents(GSDATAOTHERPATH.'newsletter/messagebtn.txt');
+    $successinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/success.txt');
+    $errorinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/error.txt');
 
-
-	echo '
-    <div class="newsletter-invitation">'.$message.'<br>
-		<form action="" method="post">
-			<input name="emailnewsletter" placeholder="name@example.com" required value="'.@$_POST['emailnewsletter'].'" type="email">
-			<input type="text" name="trap" class="newsletter-trap">
-			<input name="givemenewsletter" value="'.$messagebtn.'" type="submit">
-		</form>
-	</div>
-    ';
+    $output='';
+    if(!isset($status) || $status != true){
+        $output=$output. '
+        <div class="newsletter-invitation">'.$message.'<br>
+            <form action="" method="post">
+                <input name="emailnewsletter" placeholder="name@example.com" required value="'.@$_POST['emailnewsletter'].'" type="email">
+                <input type="text" name="trap" class="newsletter-trap">
+                <input name="givemenewsletter" value="'.$messagebtn.'" type="submit">
+            </form>
+        </div>
+        ';
+    }
   
     if(isset($status)){
       if($status == true){
-            echo '<div class="newsletterinfo">'.$successinfo.'</div>';
+            $output=$output. '<div class="newsletterinfo">'.$successinfo.'</div>';
         }else{
-            echo '<div class="newsletterinfo newsletterinfo-error">'.$errorinfo.'</div>';
+            $output=$output. '<div class="newsletterinfo newsletterinfo-error">'.$errorinfo.'</div>';
         };
     };
 
+    return $output;
+
+}
+
+# functions
+function newsletterInvitation() {
+    echo buildNewsletterInvitationContent();
 }
 
 register_style('newsletterstyle', $SITEURL.'plugins/newsletter/css/newsletterstyle.css', GSVERSION, 'screen');

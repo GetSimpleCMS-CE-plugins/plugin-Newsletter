@@ -3,6 +3,7 @@
 $i18n = [
 
 	"INVITATION" 		=> "Dołącz zaproszenie do newslettera w swoim szablonie",
+	"INVITATION_SHORTCODE" => "Lub użyj następującego krótkiego kodu w edytorze",
 	"SENDNEWSLETTER" 	=> "Wyślij Newsletter",
 	"MAILINGLIST"		=> "Lista Mailingowa & Ustawienia",
 
