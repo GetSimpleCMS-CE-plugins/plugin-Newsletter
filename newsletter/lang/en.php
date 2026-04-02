@@ -3,6 +3,7 @@
 $i18n = [
 
 	"INVITATION" 		=> "Include your Newsletter Invitation in your template:",
+	"INVITATION_SHORTCODE" => "Or use the following shortcode in the editor:",
 	"SENDNEWSLETTER" 	=> "Send Newsletter",
 	"MAILINGLIST"		=> "Mailing List & Settings",
 

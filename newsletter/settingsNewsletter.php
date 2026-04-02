@@ -65,7 +65,7 @@
 
 		<label>'.i18n_r('newsletter/SMTPSENDER').'</label>
 		<br>
-		<input type="email" value="'.$sender.'" placeholder="'.i18n_r('newsletter/SMTPMAIL').'" name="senderemail" placeholder="example@example.com"style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;">
+		<input type="email" value="'.$sender.'" placeholder="'.i18n_r('newsletter/SMTPMAIL').'" name="senderemail" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;">
 
 		<label>'.i18n_r('newsletter/SENDERNAME').'</label>
 		<br>
@@ -131,14 +131,12 @@
 
 <label>'.i18n_r('newsletter/SUBSUCCESS').' </label>
 <br>
-<input type="text" name="successinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/SUBSUCCESSVALUE').'"   value="'.$successinfo.'">
+<input type="text" name="successinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/SUBSUCCESSVALUE').'" value="'.$successinfo.'">
 
 
 <label>'.i18n_r('newsletter/SUBERROR').'</label>
 <br>
-<input type="text" name="errorinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" 
-placeholder="'.i18n_r('newsletter/SUBERRORVALUE').'
-" value="'.$errorinfo.'">
+<input type="text" name="errorinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/SUBERRORVALUE').'" value="'.$errorinfo.'">
 
 
 <label>'.i18n_r('newsletter/SUBVALUE').'</label>
