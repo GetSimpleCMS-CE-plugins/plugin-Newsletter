@@ -28,6 +28,8 @@ $i18n = [
 	"REQSSL"			=> "Uses SSL?",
 	"YES"				=> "Yes",
 	"NO"				=> "No",
+	"USESITETHEME"		=> "Use the site's theme for the invitation form.",
+	"USESITETHEMESAMPLE"=> "You will need to add the following styles to your theme:",
 
 	"NEWSLETTERECP"		=> "Newsletter Recipients:",
 	"NEWSLETTERECPSMALL" => "Addresses are comma separated. (<span style='color:red;'>The last comma is required! Dont delete it!</span>) ",

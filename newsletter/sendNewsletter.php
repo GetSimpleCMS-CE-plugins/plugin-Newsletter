@@ -2,28 +2,34 @@
 
 if(isset($_POST['sendnewsletter'])){
 
-    require(GSPLUGINPATH."newsletter/PHPMailer/src/PHPMailer.php");
-    require(GSPLUGINPATH."newsletter/PHPMailer/src/SMTP.php");
-    require(GSPLUGINPATH."newsletter/PHPMailer/src/Exception.php");
+
+     if (!class_exists('PHPMailer')) {
+
+        require(GSPLUGINPATH."newsletter/PHPMailer/src/PHPMailer.php");
+        require(GSPLUGINPATH."newsletter/PHPMailer/src/SMTP.php");
+        require(GSPLUGINPATH."newsletter/PHPMailer/src/Exception.php");
+     }
+
     
     $subject = $_POST['title'];
     $message = $_POST['contentnewsletter'];
     
-    $mail = new PHPMailer\PHPMailer\PHPMailer();
-    
+    //Create an instance; passing `true` enables exceptions
+    $mail = new PHPMailer\PHPMailer\PHPMailer(true);
     $mail->IsSMTP();
     $mail->CharSet="UTF-8";
     $mail->Host = $servername; /* Zależne od hostingu poczty*/
-    $mail->SMTPDebug = 0;
+    $mail->SMTPDebug =2; // 0 no debug
     $mail->Port = $portname; /* Zależne od hostingu poczty, czasem 587 */
 
     if($ssl == "true"){
-       $mail->SMTPSecure = 'ssl';
+       //$mail->SMTPSecure = 'ssl';
+        $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
     };
 
 
-        if($authcheck  == "true"){
-    $mail->SMTPAuth = true;
+    if($authcheck  == "true"){
+        $mail->SMTPAuth = true;
     }
 
 
@@ -40,20 +46,32 @@ if(isset($_POST['sendnewsletter'])){
     foreach($newlist as $email){
     
         if($email !== '' ){
-            $mail->addAddress("$email");
+            $mail->addBCC($email);
+           // $mail->addAddress($email);
             //$success = $mail->Send();
     
-            if(!$mail->Send()){
+           /* if(!$mail->Send()){
                 $sended = false;
                 } else {
               $sended = true; 
                 }
     
-            $mail->clearAllRecipients();
+            $mail->clearAllRecipients();*/
         }
     
     };
-    
+    $sended = false;
+    try {
+        if(!$mail->Send()){
+            $sended = false;
+        } else {
+            $sended = true;
+        }
+    } catch (Exception $e) {
+        error_log('Message could not be sent. Mailer Error: ' . $mail->ErrorInfo);
+    }
+    $mail->clearAllRecipients();
+
     if($sended == true){
         echo "<div class='isended'>".i18n_r('newsletter/MESSAGESUCCESS')."</div>";
     }else{

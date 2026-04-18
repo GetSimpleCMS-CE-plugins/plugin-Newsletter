@@ -27,6 +27,8 @@ $i18n = [
 	"REQSSL"			=> "Utiliser SSL ?",
 	"YES"				=> "Oui",
 	"NO"				=> "Non",
+	"USESITETHEME"		=> "Utiliser le thème du site pour le formulaire d'inscription.",
+	"USESITETHEMESAMPLE"=> "Vous devrez ajouter les styles suivants dans votre thème :",
 
 	"NEWSLETTERECP"		=> "Destinataires de la Newsletter :",
 	"NEWSLETTERECPSMALL" => "Les adresses mail sont séparées par une virgule. (<span style='color:red;'>La dernière virgule est obligatoire ! Ne pas la supprimer !</span>) ",

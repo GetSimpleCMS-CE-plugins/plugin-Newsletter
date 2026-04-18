@@ -27,6 +27,8 @@ $i18n = [
 	"REQSSL"			=> "¿Utiliza SSL?",
 	"YES"				=> "Si",
 	"NO"				=> "No",
+	"USESITETHEME"		=> "Utiliza el tema del sitio web para el formulario de invitación.",
+	"USESITETHEMESAMPLE"=> "Deberás agregar los siguientes estilos a tu tema:",
 
 	"NEWSLETTERECP"		=> "Destinatarios del boletín:",
 	"NEWSLETTERECPSMALL" => "Las direcciones están separadas por comas. (<span style='color:red;'>¡La última coma es obligatoria! ¡No lo borres!</span>) ",

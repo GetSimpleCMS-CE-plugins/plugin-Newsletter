@@ -16,6 +16,7 @@
 
         $successinfo = $_POST['successinfo'];
         $errorinfo = $_POST['errorinfo'];
+		$useSiteTheme = $_POST['sitetheme'];
 
         //file to save
 
@@ -30,6 +31,8 @@
 
         $filesuccess = $folder.'success.txt';
         $fileerror = $folder.'error.txt';
+
+		$fileUseSiteTheme = $folder.'sitetheme.txt';
 
 
         $fileauth = $folder.'auth.txt';
@@ -51,6 +54,8 @@
 
             file_put_contents($filesuccess,$successinfo);
             file_put_contents($fileerror,$errorinfo);
+
+			file_put_contents($fileUseSiteTheme,$useSiteTheme);
         };
 
         file_put_contents(GSPLUGINPATH."newsletter/security/emails", $maillist);
@@ -115,6 +120,66 @@
 				document.querySelector(`select[name="ssl"]`).value = "true";
 			}else{
 				document.querySelector(`select[name="ssl"]`).value = "false";
+			}
+		</script>
+
+		<label>'.i18n_r('newsletter/USESITETHEME').'</label>
+		<br>
+		<select style="width:100%;height:40px;margin-bottom:10px;border:none;padding:10px;" name="sitetheme" onchange="toogleSiteTheme()">
+			<option  value="true">'.i18n_r('newsletter/YES').'</option>
+			<option   value="false">'.i18n_r('newsletter/NO').'</option>
+		</select>
+
+		<div id="siteThemeSample" style="display:block;">
+			<p>'.i18n_r('newsletter/USESITETHEMESAMPLE').'</p>
+			<code style="display: block;white-space:pre-wrap;">
+.newsletter-invitation{
+    width:100%;
+    height:auto;
+    padding: 15px;
+    border:solid 1px #ddd;
+    margin:10px 0;
+}
+
+.newsletter-invitation input{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin:5px 0;
+}
+
+.newsletter-invitation input[type="submit"]{
+    background:green;
+    color:#fff;
+}
+
+.newsletterinfo{
+    background: green;
+    display: block;
+}
+
+.newsletterinfo-error{
+    background: red;
+    display: block;
+}
+			</code>
+		</div>
+
+		<script>
+			if("'. $useSiteTheme.'" == "true") {
+				document.querySelector(`select[name="sitetheme"]`).value = "true";
+				document.querySelector(`#siteThemeSample`).style.display="block";
+			} else{
+				document.querySelector(`select[name="sitetheme"]`).value = "false";
+				document.querySelector(`#siteThemeSample`).style.display="none";
+			}
+			function toogleSiteTheme() {
+				if(document.querySelector(`select[name="sitetheme"]`).value=="true") {
+					document.querySelector(`#siteThemeSample`).style.display="block";
+				}
+				else {
+					document.querySelector(`#siteThemeSample`).style.display="none";
+				}
 			}
 		</script>
 		

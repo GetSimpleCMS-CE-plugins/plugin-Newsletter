@@ -28,6 +28,8 @@ $i18n = [
 	"REQSSL"			=> "Użyć SSL?",
 	"YES"				=> "Tak",
 	"NO"				=> "Nie",
+	"USESITETHEME"		=> "Użyj motywu witryny dla formularza zaproszenia.",
+	"USESITETHEMESAMPLE"=> "Do swojego motywu musisz dodać następujące style:",
 
 	"NEWSLETTERECP"		=> "Odbiorcy Newslettera:",
 	"NEWSLETTERECPSMALL" => "Adresy są oddzielone przecinkami. (<span style='color:red;'>Ostatni przecinek jest wymagany! Nie usuwaj go!</span>) ",

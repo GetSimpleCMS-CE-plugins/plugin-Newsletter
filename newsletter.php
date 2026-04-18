@@ -5,8 +5,11 @@ if (!defined('IN_GS')) {
     die('You cannot load this page directly.');
 }
 
-$thisfile=basename(__FILE__, ".php");
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
+$thisfile=basename(__FILE__, ".php");
 
 register_plugin(
 	$thisfile, //Plugin id
@@ -46,7 +49,8 @@ function newsletter() {
     $message = @file_get_contents(GSDATAOTHERPATH.'newsletter/messagenewsletter.txt');
     $messagebtn = @file_get_contents(GSDATAOTHERPATH.'newsletter/messagebtn.txt');
     $successinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/success.txt');
-    $errorinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/errro.txt');
+    $errorinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/error.txt');
+    $useSiteTheme = @file_get_contents(GSDATAOTHERPATH.'newsletter/sitetheme.txt');
 
 
 
@@ -168,5 +172,10 @@ function newsletterInvitation() {
     echo buildNewsletterInvitationContent();
 }
 
-register_style('newsletterstyle', $SITEURL.'plugins/newsletter/css/newsletterstyle.css', GSVERSION, 'screen');
+register_style('newsletterstyle', $SITEURL.'plugins/newsletter/css/newsletterstyle.css', GSVERSION."-rev1", 'screen');
 queue_style('newsletterstyle',GSBOTH);
+$useSiteTheme = @file_get_contents(GSDATAOTHERPATH.'newsletter/sitetheme.txt');
+if($useSiteTheme=="false") {
+    register_style('newsletterinvitation', $SITEURL.'plugins/newsletter/css/newsletterinvitation.css', GSVERSION."-rev1", 'screen');
+    queue_style('newsletterinvitation',GSBOTH);
+}
