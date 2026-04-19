@@ -30,16 +30,27 @@ $i18n = [
 	"USESITETHEME"		=> "Utiliser le thème du site pour le formulaire d'inscription.",
 	"USESITETHEMESAMPLE"=> "Vous devrez ajouter les styles suivants dans votre thème :",
 
+	"NEWSLETTEFOOTER" => "Texte à ajouter à la fin de la newsletter :",
+
 	"NEWSLETTERECP"		=> "Destinataires de la Newsletter :",
 	"NEWSLETTERECPSMALL" => "Les adresses mail sont séparées par une virgule. (<span style='color:red;'>La dernière virgule est obligatoire ! Ne pas la supprimer !</span>) ",
 
-	"SUBSUCCESS"		=> "Message de succès à l'inscription",
+	"SUBSUCCESS"		=> "Message de succès à l'inscription :",
 	"SUBSUCCESSVALUE"	=> "Merci pour votre inscription à notre newsletter",
-	"SUBERROR"			=> "Message d'erreur à l'inscription",
+	"SUBERROR"			=> "Message d'erreur à l'inscription :",
 	"SUBERRORVALUE"		=> "Malheureusement il n'a pas été possible de vous inscrire à notre newsletter",
-	"SUBVALUE"			=> "Texte du bouton d'inscription à la newsletter ",
+	"SUBVALUE"			=> "Texte du bouton d'inscription à la newsletter :",
 	"SUBVALUEVALUE"		=> "S'inscrire",
 	"FORMSUBSCRIBE"		=> "Texte du formulaire d'inscription :",
+
+	"UNSUBSUCCESS"		=> "Message de succès à la désinscription :",
+	"UNSUBSUCCESSVALUE"	=> "Désormais, vous ne recevrez plus notre newsletter",
+	"UNSUBERROR"			=> "Message d'erreur à la désinscription :",
+	"UNSUBERRORVALUE"		=> "Malheureusement il n'a pas été possible de vous désinscrire à notre newsletter",
+	"UNSUBVALUE"			=> "Texte du bouton de désinscription à la newsletter :",
+	"UNSUBVALUEVALUE"		=> "Se désinscrire",
+	"FORMUNSUBSCRIBE"		=> "Texte du formulaire de désinscription :",
+
 	"SAVE"				=> "Enregistrer",
 
 	"PAYPAL"			=> "Merci de supporter mon travail sur PayPal :) !"

@@ -35,42 +35,40 @@ if(isset($_POST['sendnewsletter'])){
 
 
     $mail->IsHTML(true);
-    $mail->Username = $sender; /* login do skrzynki email często adres*/
-    $mail->Password =  base64_decode($passwordfile) ; /* Hasło do poczty */
-    $mail->setFrom($sender, $sendername); /* adres e-mail i nazwa nadawcy */
+    $mail->Username = $senderemail; /* login do skrzynki email często adres*/
+    $mail->Password =  base64_decode($password) ; /* Hasło do poczty */
+    $mail->setFrom($senderemail, $sendername); /* adres e-mail i nazwa nadawcy */
     
     
     $mail->Subject = $subject; /* Tytuł wiadomości */
-    $mail->Body = html_entity_decode($message);
+    if (trim($message) !="") {
+        $mail->Body = html_entity_decode($message.'<br/><br/>'.$mailfooter);
+    }
+    else {
+        $mail->Body = html_entity_decode($message);
+    }
     
-    foreach($newlist as $email){
+    $explodedmaillist = explode(",",$maillist);
+    foreach($explodedmaillist as $email){
     
         if($email !== '' ){
             $mail->addBCC($email);
-           // $mail->addAddress($email);
-            //$success = $mail->Send();
-    
-           /* if(!$mail->Send()){
-                $sended = false;
-                } else {
-              $sended = true; 
-                }
-    
-            $mail->clearAllRecipients();*/
         }
     
     };
     $sended = false;
-    try {
-        if(!$mail->Send()){
-            $sended = false;
-        } else {
-            $sended = true;
+    if (trim($message) !="") {
+        try {
+            if(!$mail->Send()){
+                $sended = false;
+            } else {
+                $sended = true;
+            }
+        } catch (Exception $e) {
+            error_log('Message could not be sent. Mailer Error: ' . $mail->ErrorInfo);
         }
-    } catch (Exception $e) {
-        error_log('Message could not be sent. Mailer Error: ' . $mail->ErrorInfo);
+        $mail->clearAllRecipients();
     }
-    $mail->clearAllRecipients();
 
     if($sended == true){
         echo "<div class='isended'>".i18n_r('newsletter/MESSAGESUCCESS')."</div>";

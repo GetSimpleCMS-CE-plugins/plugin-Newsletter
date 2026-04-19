@@ -30,6 +30,8 @@ $i18n = [
 	"USESITETHEME"		=> "Utiliza el tema del sitio web para el formulario de invitación.",
 	"USESITETHEMESAMPLE"=> "Deberás agregar los siguientes estilos a tu tema:",
 
+	"NEWSLETTEFOOTER" => "Texto para añadir al final del boletín informativo:",
+
 	"NEWSLETTERECP"		=> "Destinatarios del boletín:",
 	"NEWSLETTERECPSMALL" => "Las direcciones están separadas por comas. (<span style='color:red;'>¡La última coma es obligatoria! ¡No lo borres!</span>) ",
 
@@ -40,6 +42,15 @@ $i18n = [
 	"SUBVALUE"			=> "Valor del botón del Suscríbete al boletín ",
 	"SUBVALUEVALUE"		=> "Suscríbete al boletín",
 	"FORMSUBSCRIBE"		=> "Texto de suscripción del formulario del boletín:",
+
+	"UNSUBSUCCESS"		=> "Mensaje de cancelación de suscripción exitosa:",
+	"UNSUBSUCCESSVALUE"	=> "Ya no recibirás nuestro boletín informativo.",
+	"UNSUBERROR"			=> "Mensaje de error al cancelar la suscripción:",
+	"UNSUBERRORVALUE"		=> "Lamentablemente, no fue posible cancelar la suscripción a nuestro boletín informativo.",
+	"UNSUBVALUE"			=> "Texto del botón para cancelar la suscripción al boletín informativo:",
+	"UNSUBVALUEVALUE"		=> "Cancelar suscripción",
+	"FORMUNSUBSCRIBE"		=> "Texto del formulario de baja:",
+
 	"SAVE"				=> "Guardar",
 
 	"PAYPAL"			=> "Apoya mi trabajo a través de PayPal :) ¡Gracias!"
