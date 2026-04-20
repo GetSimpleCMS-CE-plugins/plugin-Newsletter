@@ -19,7 +19,7 @@ if(isset($_POST['sendnewsletter'])){
     $mail->IsSMTP();
     $mail->CharSet="UTF-8";
     $mail->Host = $servername; /* Zależne od hostingu poczty*/
-    $mail->SMTPDebug =2; // 0 no debug
+    $mail->SMTPDebug =0; // 0 for no debug, 2 to debug
     $mail->Port = $portname; /* Zależne od hostingu poczty, czasem 587 */
 
     if($ssl == "true"){
