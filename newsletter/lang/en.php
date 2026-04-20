@@ -2,7 +2,7 @@
 
 $i18n = [
 
-	"INVITATION" 		=> "Include your Newsletter Invitation in your template:",
+	"INVITATION" 		=> "To add a subscription (or unsubscribe) form to your newsletter, copy the following code into your page:",
 	"INVITATION_SHORTCODE" => "Or use the following shortcode in the editor:",
 	"SENDNEWSLETTER" 	=> "Send Newsletter",
 	"MAILINGLIST"		=> "Mailing List & Settings",

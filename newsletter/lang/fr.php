@@ -2,7 +2,7 @@
 
 $i18n = [
 
-	"INVITATION" 		=> "Pour ajouter un invitation à votre Newsletter, copiez dans votre page le code :",
+	"INVITATION" 		=> "Pour ajouter un formulaire d'inscription (ou de désinscription) à votre Newsletter, copiez dans votre page le code :",
 	"INVITATION_SHORTCODE" => "Ou utilisez le shortcode suivant dans l'éditeur :",
 	"SENDNEWSLETTER" 	=> "Envoyer une Newsletter",
 	"MAILINGLIST"		=> "Liste d'adresses et paramètres",

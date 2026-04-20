@@ -2,7 +2,7 @@
 
 $i18n = [
 
-	"INVITATION" 		=> "Incluya su Invitación al Boletín en su plantilla:",
+	"INVITATION" 		=> "Para añadir un formulario de suscripción (o cancelación de suscripción) a tu boletín informativo, copia el siguiente código en tu página:",
 	"INVITATION_SHORTCODE" => "O bien, utilice el siguiente código corto en el editor:",
 	"SENDNEWSLETTER" 	=> "Enviar Boletín",
 	"MAILINGLIST"		=> "Lista de correo y configuración",

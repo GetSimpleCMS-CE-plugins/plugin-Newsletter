@@ -72,14 +72,23 @@ echo '<div style="width:100px;padding:10px;background:#fafafa;border:solid 1px #
 
 
 '.i18n_r("newsletter/INVITATION").'
-
+<br/>
 <code>
 &#60;?php newsletterInvitation() ;?&#62;
 </code>
+<br/>
+<code>
+&#60;?php newsletterUnregister() ;?&#62;
+</code>
 <br/><br/>
 '.i18n_r("newsletter/INVITATION_SHORTCODE").'
+<br/>
 <code>
 [newsletterInvitation]
+</code>
+<br/>
+<code>
+[newsletterUnregister]
 </code>
 </div>';
 

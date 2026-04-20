@@ -2,7 +2,7 @@
 
 $i18n = [
 
-	"INVITATION" 		=> "Dołącz zaproszenie do newslettera w swoim szablonie",
+	"INVITATION" 		=> "Aby dodać formularz subskrypcji (lub rezygnacji z subskrypcji) do swojego newslettera, skopiuj poniższy kod na swoją stronę:",
 	"INVITATION_SHORTCODE" => "Lub użyj następującego krótkiego kodu w edytorze",
 	"SENDNEWSLETTER" 	=> "Wyślij Newsletter",
 	"MAILINGLIST"		=> "Lista Mailingowa & Ustawienia",
