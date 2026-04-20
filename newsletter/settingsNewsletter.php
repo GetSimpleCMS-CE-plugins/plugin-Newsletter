@@ -206,7 +206,7 @@
 
 		<label>'.i18n_r('newsletter/NEWSLETTEFOOTER').'</label>
 		<br>
-		<textarea name="mailfooter" style="box-sizing:border-box;padding:10px;height:250px;width:100%;border:solid 1px #ddd;">'.$mailfooter.'</textarea>
+		<textarea name="mailfooter" id="mail-footer" style="box-sizing:border-box;padding:10px;height:250px;width:100%;border:solid 1px #ddd;">'.$mailfooter.'</textarea>
 
 		<hr style="margin: 20px 0; border: 0; height: 1px;background: #333;background-image: linear-gradient(to right, #ccc, #333, #ccc);">
 
@@ -286,6 +286,21 @@
 				,toolbar: "advanced"										
 		});
 		var editorRemove = CKEDITOR.replace( "remove-post-content", {
+		skin : "getsimple",
+		forcePasteAsPlainText : true,
+			language : "en",
+			defaultLanguage : "en",
+				entities : false,
+				height: "200px",
+				baseHref : "'.$SITEURL.'",
+				tabSpaces:10,
+				filebrowserBrowseUrl : "filebrowser.php?type=all",
+				filebrowserImageBrowseUrl : "filebrowser.php?type=images",
+				filebrowserWindowWidth : "730",
+				filebrowserWindowHeight : "500"
+				,toolbar: "advanced"
+				});
+		var editorFooter = CKEDITOR.replace( "mail-footer", {
 		skin : "getsimple",
 		forcePasteAsPlainText : true,
 			language : "en",
