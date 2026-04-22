@@ -14,7 +14,7 @@ $thisfile=basename(__FILE__, ".php");
 register_plugin(
 	$thisfile, //Plugin id
 	'newsletter', 	//Plugin name
-	'1.1', 		//Plugin version
+	'1.3', 		//Plugin version
 	'Mateusz Skrzypczak',  //Plugin author
 	'http://www.multicolor.stargard.pl', //author website
 	'plugin for create newsletter from website', //Plugin description
