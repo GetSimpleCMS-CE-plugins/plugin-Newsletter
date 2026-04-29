@@ -12,9 +12,9 @@ register_plugin(
 	$thisfile, //Plugin id
 	'newsletter', 	//Plugin name
 	'1.3', 		//Plugin version
-	'Mateusz Skrzypczak',  //Plugin author
-	'http://www.multicolor.stargard.pl', //author website
-	'plugin for create newsletter from website', //Plugin description
+	'CE Team',  //Plugin author
+	'https://getsimple-ce.ovh/donate', //author website
+	'Plugin for creating a newsletter via website', //Plugin description
 	'pages', //page type - on which admin tab to display
 	'newsletter'  //main function (administration)
 );
