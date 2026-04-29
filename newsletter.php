@@ -5,13 +5,13 @@ if (!defined('IN_GS')) {
     die('You cannot load this page directly.');
 }
 
-$thisfile=basename(__FILE__, ".php");
 
+$thisfile=basename(__FILE__, ".php");
 
 register_plugin(
 	$thisfile, //Plugin id
 	'newsletter', 	//Plugin name
-	'1.1', 		//Plugin version
+	'1.3', 		//Plugin version
 	'Mateusz Skrzypczak',  //Plugin author
 	'http://www.multicolor.stargard.pl', //author website
 	'plugin for create newsletter from website', //Plugin description
@@ -25,8 +25,11 @@ i18n_merge($thisfile, substr($LANG,0,2)) || i18n_merge($thisfile,'en_US');
 # add a link in the admin tab 'theme'
 add_action('pages-sidebar','createSideMenu',[$thisfile, 'Newsletter 📧']);
 
-// Enregistrement du shortcode
+// register shortcode for subcription
 add_filter('content', 'newsletterShortcode');
+
+// register shortcode for unscubscription
+add_filter('content', 'newsletterUnregisterShortcode');
 
 function newsletter() {
 
@@ -34,41 +37,55 @@ function newsletter() {
     
 
     //files 
-
     
-    $sender = @file_get_contents(GSDATAOTHERPATH.'newsletter/sender.txt');
+    $senderemail = @file_get_contents(GSDATAOTHERPATH.'newsletter/sender.txt');
     $sendername = @file_get_contents(GSDATAOTHERPATH.'newsletter/sendername.txt');
     $servername = @file_get_contents(GSDATAOTHERPATH.'newsletter/servername.txt');
     $portname = @file_get_contents(GSDATAOTHERPATH.'newsletter/portname.txt');
     $authcheck = @file_get_contents(GSDATAOTHERPATH.'newsletter/auth.txt');
     $ssl = @file_get_contents(GSDATAOTHERPATH.'newsletter/ssl.txt');
-    $emailList = @file_get_contents(GSPLUGINPATH.'newsletter/security/emails');
+
+    $mailfooter = @file_get_contents(GSDATAOTHERPATH.'newsletter/mailfooter.txt');
     $message = @file_get_contents(GSDATAOTHERPATH.'newsletter/messagenewsletter.txt');
     $messagebtn = @file_get_contents(GSDATAOTHERPATH.'newsletter/messagebtn.txt');
     $successinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/success.txt');
-    $errorinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/errro.txt');
+    $errorinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/error.txt');
+
+    $removemessage = @file_get_contents(GSDATAOTHERPATH.'newsletter/removemessagenewsletter.txt');
+    $removemessagebtn = @file_get_contents(GSDATAOTHERPATH.'newsletter/removemessagebtn.txt');
+    $removesuccessinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/removesuccess.txt');
+    $removeerrorinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/removeerror.txt');
+
+    $useSiteTheme = @file_get_contents(GSDATAOTHERPATH.'newsletter/sitetheme.txt');
 
 
 
     //security files 
-
-    $passwordfile = @file_get_contents(GSPLUGINPATH.'newsletter/security/pass');
-    $emailList = file_get_contents(GSPLUGINPATH.'newsletter/security/emails');
-    $newlist = explode(",",$emailList);
+    $password = @file_get_contents(GSPLUGINPATH.'newsletter/security/pass');
+    $maillist = @file_get_contents(GSPLUGINPATH.'newsletter/security/emails');
 
 
 echo '<div style="width:100px;padding:10px;background:#fafafa;border:solid 1px #ddd; margin-bottom:10px;width:100%;box-sizing:border-box;">
 
 
 '.i18n_r("newsletter/INVITATION").'
-
+<br/>
 <code>
 &#60;?php newsletterInvitation() ;?&#62;
 </code>
+<br/>
+<code>
+&#60;?php newsletterUnregister() ;?&#62;
+</code>
 <br/><br/>
 '.i18n_r("newsletter/INVITATION_SHORTCODE").'
+<br/>
 <code>
 [newsletterInvitation]
+</code>
+<br/>
+<code>
+[newsletterUnregister]
 </code>
 </div>';
 
@@ -80,7 +97,6 @@ echo '<div style="width:100px;padding:10px;background:#fafafa;border:solid 1px #
 echo'<br>';
 
     require(GSPLUGINPATH.'newsletter/sendNewsletter.php');
-
     require(GSPLUGINPATH.'newsletter/settingsNewsletter.php');
 
 echo '
@@ -104,6 +120,18 @@ function newsletterShortcode($content) {
     $content = preg_replace_callback(
         '/\[newsletterInvitation\]/',
         'buildNewsletterInvitationContent',
+        $content
+    );
+    return $content;
+}
+
+/**
+ * Process shortcodes in content
+ */
+function newsletterUnregisterShortcode($content) {
+    $content = preg_replace_callback(
+        '/\[newsletterUnregister\]/',
+        'buildNewsletterUnregisterContent',
         $content
     );
     return $content;
@@ -168,5 +196,80 @@ function newsletterInvitation() {
     echo buildNewsletterInvitationContent();
 }
 
-register_style('newsletterstyle', $SITEURL.'plugins/newsletter/css/newsletterstyle.css', GSVERSION, 'screen');
+# functions
+function buildNewsletterUnregisterContent() {
+
+    error_log('buildNewsletterUnregisterContent ' );
+    if(isset($_POST['removemenewsletter'])){
+        error_log('buildNewsletterUnregisterContent  have post data' );
+        if($_POST['trap']==null && $_POST['emailnewsletter'] !== null){
+            error_log('buildNewsletterUnregisterContent  have valid post data' );
+            $email = $_POST['emailnewsletter'];
+
+            $emailList = explode(',',@file_get_contents(GSPLUGINPATH.'newsletter/security/emails'));
+
+            foreach($emailList  as $currentmail){
+
+
+                    error_log('buildNewsletterUnregisterContent $currentmail= '.$currentmail );
+
+
+
+            };
+
+            $index = array_search($email,$emailList);
+            error_log('buildNewsletterUnregisterContent $email= '.$email.' index='.$index);
+            if($index !== FALSE){
+                unset($emailList[$index]);
+               // array_push($emailList, ""); //empty last item to have final separator using implode function
+                file_put_contents(GSPLUGINPATH.'newsletter/security/emails',implode(',',$emailList));
+            }
+            $status = true;
+
+        }else{
+            $status = false;
+        };
+
+    };
+    $message = @file_get_contents(GSDATAOTHERPATH.'newsletter/removemessagenewsletter.txt');
+    $messagebtn = @file_get_contents(GSDATAOTHERPATH.'newsletter/removemessagebtn.txt');
+    $successinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/removesuccess.txt');
+    $errorinfo = @file_get_contents(GSDATAOTHERPATH.'newsletter/removeerror.txt');
+
+    $output='';
+    if(!isset($status) || $status != true){
+        $output=$output. '
+        <div class="newsletter-invitation">'.$message.'<br>
+        <form action="" method="post">
+        <input name="emailnewsletter" placeholder="name@example.com" required value="'.@$_POST['emailnewsletter'].'" type="email">
+        <input type="text" name="trap" class="newsletter-trap">
+        <input name="removemenewsletter" value="'.$messagebtn.'" type="submit">
+        </form>
+        </div>
+        ';
+    }
+
+    if(isset($status)){
+        if($status == true){
+            $output=$output. '<div class="newsletterinfo">'.$successinfo.'</div>';
+        }else{
+            $output=$output. '<div class="newsletterinfo newsletterinfo-error">'.$errorinfo.'</div>';
+        };
+    };
+
+    return $output;
+
+}
+
+# functions
+function newsletterUnregister() {
+    echo buildNewsletterUnregisterContent();
+}
+
+register_style('newsletterstyle', $SITEURL.'plugins/newsletter/css/newsletterstyle.css', GSVERSION."-rev1", 'screen');
 queue_style('newsletterstyle',GSBOTH);
+$useSiteTheme = @file_get_contents(GSDATAOTHERPATH.'newsletter/sitetheme.txt');
+if($useSiteTheme=="false") {
+    register_style('newsletterinvitation', $SITEURL.'plugins/newsletter/css/newsletterinvitation.css', GSVERSION."-rev1", 'screen');
+    queue_style('newsletterinvitation',GSBOTH);
+}

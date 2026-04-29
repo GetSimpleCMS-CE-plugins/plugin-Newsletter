@@ -2,7 +2,7 @@
 
 $i18n = [
 
-	"INVITATION" 		=> "Dołącz zaproszenie do newslettera w swoim szablonie",
+	"INVITATION" 		=> "Aby dodać formularz subskrypcji (lub rezygnacji z subskrypcji) do swojego newslettera, skopiuj poniższy kod na swoją stronę:",
 	"INVITATION_SHORTCODE" => "Lub użyj następującego krótkiego kodu w edytorze",
 	"SENDNEWSLETTER" 	=> "Wyślij Newsletter",
 	"MAILINGLIST"		=> "Lista Mailingowa & Ustawienia",
@@ -28,6 +28,10 @@ $i18n = [
 	"REQSSL"			=> "Użyć SSL?",
 	"YES"				=> "Tak",
 	"NO"				=> "Nie",
+	"USESITETHEME"		=> "Użyj motywu witryny dla formularza zaproszenia.",
+	"USESITETHEMESAMPLE"=> "Do swojego motywu musisz dodać następujące style:",
+
+	"NEWSLETTEFOOTER" => "Tekst, który należy dodać na końcu newslettera:",
 
 	"NEWSLETTERECP"		=> "Odbiorcy Newslettera:",
 	"NEWSLETTERECPSMALL" => "Adresy są oddzielone przecinkami. (<span style='color:red;'>Ostatni przecinek jest wymagany! Nie usuwaj go!</span>) ",
@@ -39,6 +43,15 @@ $i18n = [
 	"SUBVALUE"			=> "Tekst przycisku Zapisz się do newslettera ",
 	"SUBVALUEVALUE"		=> "Zapisz się do Newslettera",
 	"FORMSUBSCRIBE"		=> "Tekst zachęcający do subskrypcji",
+
+	"UNSUBSUCCESS"		=> "Komunikat o pomyślnym wypisaniu się z subskrypcji:",
+	"UNSUBSUCCESSVALUE"	=> "Nie będziesz już otrzymywać naszego newslettera.",
+	"UNSUBERROR"			=> "Komunikat o błędzie podczas anulowania subskrypcji:",
+	"UNSUBERRORVALUE"		=> "Niestety, nie udało się wypisać z naszego newslettera.",
+	"UNSUBVALUE"			=> "Tekst przycisku wypisania się z newslettera:",
+	"UNSUBVALUEVALUE"		=> "Anuluj subskrypcję",
+	"FORMUNSUBSCRIBE"		=> "Tekst z formularza wypisania się z subskrypcji:",
+
 	"SAVE"				=> "Zapisz",
 
 	"PAYPAL"			=> "Wesprzyj mmnie przez paypal :) Dzięki!"

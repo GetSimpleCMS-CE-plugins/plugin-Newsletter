@@ -2,7 +2,7 @@
 
 $i18n = [
 
-	"INVITATION" 		=> "Include your Newsletter Invitation in your template:",
+	"INVITATION" 		=> "To add a subscription (or unsubscribe) form to your newsletter, copy the following code into your page:",
 	"INVITATION_SHORTCODE" => "Or use the following shortcode in the editor:",
 	"SENDNEWSLETTER" 	=> "Send Newsletter",
 	"MAILINGLIST"		=> "Mailing List & Settings",
@@ -29,6 +29,11 @@ $i18n = [
 	"YES"				=> "Yes",
 	"NO"				=> "No",
 
+	"USESITETHEME"		=> "Use the site's theme for the invitation form.",
+	"USESITETHEMESAMPLE"=> "You will need to add the following styles to your theme:",
+
+	"NEWSLETTEFOOTER" => "Text to add to the end of the newsletter:",
+
 	"NEWSLETTERECP"		=> "Newsletter Recipients:",
 	"NEWSLETTERECPSMALL" => "Addresses are comma separated. (<span style='color:red;'>The last comma is required! Dont delete it!</span>) ",
 
@@ -39,6 +44,15 @@ $i18n = [
 	"SUBVALUE"			=> "Subscribe to the newsletter button value ",
 	"SUBVALUEVALUE"		=> "Subscribe to the newsletter",
 	"FORMSUBSCRIBE"		=> "Newsletter's Form Subscribe Text:",
+
+	"UNSUBSUCCESS"		=> "Success, unsubscription info",
+	"UNSUBSUCCESSVALUE"	=> "You will no longer receive our newsletter",
+	"UNSUBERROR"			=> "Error, unsubscription info",
+	"UNSUBERRORVALUE"		=> "Unfortunately you have not been able to unsubscribe to the newsletter",
+	"UNSUBVALUE"			=> "Unsubscribe to the newsletter button value ",
+	"UNSUBVALUEVALUE"		=> "Unsubscribe to the newsletter",
+	"FORMUNSUBSCRIBE"		=> "Newsletter's Form unsubscribe Text:",
+
 	"SAVE"				=> "Save",
 
 	"PAYPAL"			=> "Support my work via PayPal :) Thanks!"

@@ -4,18 +4,26 @@
 
     //info from post 
         $senderemail = $_POST['senderemail'];
-        $passwordpost =  base64_encode($_POST['password']);
+        $password =  base64_encode($_POST['password']);
         $sendername = $_POST['sendername'];
         $servername = $_POST['servername'];
         $portname = $_POST['portname'];
         $auth = $_POST['auth'];
         $ssl = $_POST['ssl'];
         $maillist = $_POST['maillist'];
+		$mailfooter = $_POST['mailfooter'];
+
         $message = $_POST['messagenewsletter'];
         $messagebtn = $_POST['messagebtn'];
-
         $successinfo = $_POST['successinfo'];
         $errorinfo = $_POST['errorinfo'];
+
+		$removemessage = $_POST['removemessagenewsletter'];
+		$removemessagebtn = $_POST['removemessagebtn'];
+		$removesuccessinfo = $_POST['removesuccessinfo'];
+		$removeerrorinfo = $_POST['removeerrorinfo'];
+
+		$useSiteTheme = $_POST['sitetheme'];
 
         //file to save
 
@@ -25,16 +33,24 @@
         $fileservername = $folder.'servername.txt';
         $fileportname = $folder.'portname.txt';
         $filessl = $folder.'ssl.txt';
+		$filemailfooter = $folder.'mailfooter.txt';
+
         $filemessage = $folder.'messagenewsletter.txt';
         $filemessagebtn = $folder.'messagebtn.txt';
-
         $filesuccess = $folder.'success.txt';
         $fileerror = $folder.'error.txt';
+
+		$fileremovemessage = $folder.'removemessagenewsletter.txt';
+		$fileremovemessagebtn = $folder.'removemessagebtn.txt';
+		$fileremovesuccess = $folder.'removesuccess.txt';
+		$fileremoveerror = $folder.'removeerror.txt';
+
+		$fileUseSiteTheme = $folder.'sitetheme.txt';
 
 
         $fileauth = $folder.'auth.txt';
 
-        $password = GSPLUGINPATH.'newsletter/security/pass';
+
         $chmod = 0755;
         $file_exist= file_exists($folder) || mkdir($folder,$chmod);
 
@@ -43,16 +59,24 @@
             file_put_contents($filesendername,$sendername);
             file_put_contents($fileservername,$servername);
             file_put_contents($fileportname,$portname);
-            file_put_contents($password,$passwordpost);
             file_put_contents($filessl,$ssl);
             file_put_contents($fileauth,$auth);
+			file_put_contents($filemailfooter,$mailfooter);
+
             file_put_contents($filemessage,$message);
             file_put_contents($filemessagebtn,$messagebtn);
-
             file_put_contents($filesuccess,$successinfo);
             file_put_contents($fileerror,$errorinfo);
+
+			file_put_contents($fileremovemessage,$removemessage);
+			file_put_contents($fileremovemessagebtn,$removemessagebtn);
+			file_put_contents($fileremovesuccess,$removesuccessinfo);
+			file_put_contents($fileremoveerror,$removeerrorinfo);
+
+			file_put_contents($fileUseSiteTheme,$useSiteTheme);
         };
 
+		file_put_contents(GSPLUGINPATH.'newsletter/security/pass', $password);
         file_put_contents(GSPLUGINPATH."newsletter/security/emails", $maillist);
 		
     }
@@ -65,7 +89,7 @@
 
 		<label>'.i18n_r('newsletter/SMTPSENDER').'</label>
 		<br>
-		<input type="email" value="'.$sender.'" placeholder="'.i18n_r('newsletter/SMTPMAIL').'" name="senderemail" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;">
+		<input type="email" value="'.$senderemail.'" placeholder="'.i18n_r('newsletter/SMTPMAIL').'" name="senderemail" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;">
 
 		<label>'.i18n_r('newsletter/SENDERNAME').'</label>
 		<br>
@@ -73,7 +97,7 @@
 
 		<label>'.i18n_r('newsletter/SMTPPASSWORD').'</label>
 		<br>
-		<input type="password" name="password" value="'.base64_decode($passwordfile).'" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;">
+		<input type="password" name="password" value="'.base64_decode($password).'" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;">
 
 		<label>'.i18n_r('newsletter/SMTPSERVER').'</label>
 		<br>
@@ -117,38 +141,125 @@
 				document.querySelector(`select[name="ssl"]`).value = "false";
 			}
 		</script>
+
+		<label>'.i18n_r('newsletter/USESITETHEME').'</label>
+		<br>
+		<select style="width:100%;height:40px;margin-bottom:10px;border:none;padding:10px;" name="sitetheme" onchange="toogleSiteTheme()">
+			<option  value="true">'.i18n_r('newsletter/YES').'</option>
+			<option   value="false">'.i18n_r('newsletter/NO').'</option>
+		</select>
+
+		<div id="siteThemeSample" style="display:block;">
+			<p>'.i18n_r('newsletter/USESITETHEMESAMPLE').'</p>
+			<code style="display: block;white-space:pre-wrap;">
+.newsletter-invitation{
+    width:100%;
+    height:auto;
+    padding: 15px;
+    border:solid 1px #ddd;
+    margin:10px 0;
+}
+
+.newsletter-invitation input{
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin:5px 0;
+}
+
+.newsletter-invitation input[type="submit"]{
+    background:green;
+    color:#fff;
+}
+
+.newsletterinfo{
+    background: green;
+    display: block;
+}
+
+.newsletterinfo-error{
+    background: red;
+    display: block;
+}
+			</code>
+		</div>
+
+		<script>
+			if("'. $useSiteTheme.'" == "true") {
+				document.querySelector(`select[name="sitetheme"]`).value = "true";
+				document.querySelector(`#siteThemeSample`).style.display="block";
+			} else{
+				document.querySelector(`select[name="sitetheme"]`).value = "false";
+				document.querySelector(`#siteThemeSample`).style.display="none";
+			}
+			function toogleSiteTheme() {
+				if(document.querySelector(`select[name="sitetheme"]`).value=="true") {
+					document.querySelector(`#siteThemeSample`).style.display="block";
+				}
+				else {
+					document.querySelector(`#siteThemeSample`).style.display="none";
+				}
+			}
+		</script>
 		
 		<hr style="margin: 20px 0; border: 0; height: 1px;background: #333;background-image: linear-gradient(to right, #ccc, #333, #ccc);">
+
+		<label>'.i18n_r('newsletter/NEWSLETTEFOOTER').'</label>
+		<br>
+		<textarea name="mailfooter" id="mail-footer" style="box-sizing:border-box;padding:10px;height:250px;width:100%;border:solid 1px #ddd;">'.$mailfooter.'</textarea>
+
+		<hr style="margin: 20px 0; border: 0; height: 1px;background: #333;background-image: linear-gradient(to right, #ccc, #333, #ccc);">
+
 		
 		<label>'.i18n_r('newsletter/NEWSLETTERECP').'</label>
 		<small>'.i18n_r('newsletter/NEWSLETTERECPSMALL').'</small>
 		<br>
-		<textarea name="maillist" style="box-sizing:border-box;padding:10px;height:250px;width:100%;border:solid 1px #ddd;">'.$emailList.'</textarea>
+		<textarea name="maillist" style="box-sizing:border-box;padding:10px;height:250px;width:100%;border:solid 1px #ddd;">'.$maillist.'</textarea>
 		
 		<hr style="margin: 20px 0; border: 0; height: 1px;background: #333;background-image: linear-gradient(to right, #ccc, #333, #ccc);">
 
 
-
-<label>'.i18n_r('newsletter/SUBSUCCESS').' </label>
-<br>
-<input type="text" name="successinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/SUBSUCCESSVALUE').'" value="'.$successinfo.'">
-
-
-<label>'.i18n_r('newsletter/SUBERROR').'</label>
-<br>
-<input type="text" name="errorinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/SUBERRORVALUE').'" value="'.$errorinfo.'">
+		<label>'.i18n_r('newsletter/SUBSUCCESS').' </label>
+		<br>
+		<input type="text" name="successinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/SUBSUCCESSVALUE').'" value="'.$successinfo.'">
 
 
-<label>'.i18n_r('newsletter/SUBVALUE').'</label>
-<br>
-<input type="text" name="messagebtn" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/SUBVALUEVALUE').'" value="'.$messagebtn.'">
+		<label>'.i18n_r('newsletter/SUBERROR').'</label>
+		<br>
+		<input type="text" name="errorinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/SUBERRORVALUE').'" value="'.$errorinfo.'">
+
+
+		<label>'.i18n_r('newsletter/SUBVALUE').'</label>
+		<br>
+		<input type="text" name="messagebtn" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/SUBVALUEVALUE').'" value="'.$messagebtn.'">
 
 
 		<label>'.i18n_r('newsletter/FORMSUBSCRIBE').'</label>
 		<br>
 		<textarea name="messagenewsletter" id="post-content">'.$message.'</textarea>
+		<br>
+		<label>'.i18n_r('newsletter/UNSUBSUCCESS').' </label>
+		<br>
+		<input type="text" name="removesuccessinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/UNSUBSUCCESSVALUE').'" value="'.$removesuccessinfo.'">
+
+
+		<label>'.i18n_r('newsletter/UNSUBERROR').'</label>
+		<br>
+		<input type="text" name="removeerrorinfo" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/UNSUBERRORVALUE').'" value="'.$removeerrorinfo.'">
+
+
+		<label>'.i18n_r('newsletter/UNSUBVALUE').'</label>
+		<br>
+		<input type="text" name="removemessagebtn" style="width:100%;padding:10px;box-sizing:border-box;margin-bottom:20px;border:solid 1px #ddd;" placeholder="'.i18n_r('newsletter/UNSUBVALUEVALUE').'" value="'.$removemessagebtn.'">
+
+
+		<label>'.i18n_r('newsletter/FORMUNSUBSCRIBE').'</label>
+		<br>
+		<textarea name="removemessagenewsletter" id="remove-post-content">'.$removemessage.'</textarea>
 
 		<input type="submit" name="savenewsletter" style="background:green;color:#fff;border:none;padding:10px 15px;margin-top:10px" value="'.i18n_r('newsletter/SAVE').'">
+
+
 	
 	</form>
 	
@@ -174,6 +285,36 @@
 				filebrowserWindowHeight : "500"
 				,toolbar: "advanced"										
 		});
+		var editorRemove = CKEDITOR.replace( "remove-post-content", {
+		skin : "getsimple",
+		forcePasteAsPlainText : true,
+			language : "en",
+			defaultLanguage : "en",
+				entities : false,
+				height: "200px",
+				baseHref : "'.$SITEURL.'",
+				tabSpaces:10,
+				filebrowserBrowseUrl : "filebrowser.php?type=all",
+				filebrowserImageBrowseUrl : "filebrowser.php?type=images",
+				filebrowserWindowWidth : "730",
+				filebrowserWindowHeight : "500"
+				,toolbar: "advanced"
+				});
+		var editorFooter = CKEDITOR.replace( "mail-footer", {
+		skin : "getsimple",
+		forcePasteAsPlainText : true,
+			language : "en",
+			defaultLanguage : "en",
+				entities : false,
+				height: "200px",
+				baseHref : "'.$SITEURL.'",
+				tabSpaces:10,
+				filebrowserBrowseUrl : "filebrowser.php?type=all",
+				filebrowserImageBrowseUrl : "filebrowser.php?type=images",
+				filebrowserWindowWidth : "730",
+				filebrowserWindowHeight : "500"
+				,toolbar: "advanced"
+				});
 	</script>';
 
     echo '<script>
